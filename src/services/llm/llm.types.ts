@@ -39,13 +39,6 @@ export const memoryIndexEntrySchema = z.object({
 
 export type MemoryIndexEntry = z.infer<typeof memoryIndexEntrySchema>;
 
-export const memoryIndexSchema = z.object({
-  lastUpdated: z.string(),
-  entries: z.array(memoryIndexEntrySchema),
-});
-
-export type MemoryIndex = z.infer<typeof memoryIndexSchema>;
-
 export const memoryIndexSchemaV2 = z.object({
   lastUpdated: z.string(),
   entries: z.array(memoryIndexEntrySchema),

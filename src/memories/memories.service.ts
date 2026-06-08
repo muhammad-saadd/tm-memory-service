@@ -14,6 +14,8 @@ export class MemoriesService {
     'topics',
     'events',
     'preferences',
+    'organizations',
+    'locations',
   ];
 
   constructor(private readonly storageService: StorageService) {}

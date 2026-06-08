@@ -56,7 +56,7 @@ describe('LLMService', () => {
 
       mockCreate
         .mockResolvedValueOnce({
-          choices: [{ message: { content: JSON.stringify(memories) } }],
+          choices: [{ message: { content: JSON.stringify({ memories }) } }],
         })
         .mockResolvedValueOnce({
           choices: [{ message: { content: JSON.stringify({ pass: true, score: 0.9, feedback: '' }) } }],
@@ -70,7 +70,7 @@ describe('LLMService', () => {
 
     it('should handle empty array from LLM', async () => {
       mockCreate.mockResolvedValue({
-        choices: [{ message: { content: '[]' } }],
+        choices: [{ message: { content: JSON.stringify({ memories: [] }) } }],
       });
 
       const result = await service.extractMemories(1, 'boring content');
@@ -89,7 +89,7 @@ describe('LLMService', () => {
 
     it('should throw on wrong schema from LLM', async () => {
       mockCreate.mockResolvedValue({
-        choices: [{ message: { content: JSON.stringify([{ wrong: 'field' }]) } }],
+        choices: [{ message: { content: JSON.stringify({ memories: [{ wrong: 'field' }] }) } }],
       });
 
       await expect(
@@ -111,13 +111,13 @@ describe('LLMService', () => {
 
       mockCreate
         .mockResolvedValueOnce({
-          choices: [{ message: { content: JSON.stringify(memories) } }],
+          choices: [{ message: { content: JSON.stringify({ memories }) } }],
         })
         .mockResolvedValueOnce({
           choices: [{ message: { content: JSON.stringify({ pass: false, score: 0.5, feedback: 'Missing role info' }) } }],
         })
         .mockResolvedValueOnce({
-          choices: [{ message: { content: JSON.stringify(memories) } }],
+          choices: [{ message: { content: JSON.stringify({ memories }) } }],
         })
         .mockResolvedValueOnce({
           choices: [{ message: { content: JSON.stringify({ pass: true, score: 0.85, feedback: '' }) } }],

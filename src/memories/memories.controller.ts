@@ -18,16 +18,18 @@ export class MemoriesController {
 
   @Get('ls/*path')
   ls(
-    @Param('path') path: string,
+    @Param('path') path: unknown,
     @Query(new ZodValidationPipe(lsQuerySchema))
     query: LsQuery,
   ) {
-    return this.memoriesService.ls(path || '', query);
+    const joined = Array.isArray(path) ? path.join('/') : String(path || '');
+    return this.memoriesService.ls(joined, query);
   }
 
   @Get('cat/*path')
-  cat(@Param('path') path: string) {
-    return this.memoriesService.cat(path);
+  cat(@Param('path') path: unknown) {
+    const joined = Array.isArray(path) ? path.join('/') : String(path || '');
+    return this.memoriesService.cat(joined);
   }
 
   @Get('grep')
