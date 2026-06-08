@@ -1,0 +1,9 @@
+node_modules
+dist
+.git
+.env
+*.md
+.prettierrc
+eslint.config.mjs
+test
+setup.sh
